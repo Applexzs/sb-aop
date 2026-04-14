@@ -12,4 +12,11 @@ public class GreetingServiceImpl implements IGreetingService{
         System.out.println(greeting);
         return greeting;
     }
+
+    @Override
+    public String sayHelloError(String person, String phrase) {
+        throw new RuntimeException("algun error");
+    }
+
+
 }
