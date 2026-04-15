@@ -18,38 +18,35 @@ public class GreetingAspect {
 
     private Logger log = LoggerFactory.getLogger(GreetingAspect.class);
 
-    @Pointcut("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
-    private void greetingLoggerPointCut() {}
-
-    @Before("greetingLoggerPointCut()")
+    @Before("GreetingServicePointcut.greetingLoggerPointCut()")
     public void loggerBefore(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Antes: " + method + " con los argumentos " + args);
     }
 
-    @After("greetingLoggerPointCut()")
+    @After("GreetingServicePointcut.greetingLoggerPointCut()")
     public void loggerAfter(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues: " + method + " con los argumentos " + args);
     }
 
-    @AfterReturning("greetingLoggerPointCut()")
+    @AfterReturning("GreetingServicePointcut.greetingLoggerPointCut()")
     public void loggerAfterReturning(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues de retornar: " + method + " con los argumentos " + args);
     }
 
-    @AfterThrowing("greetingLoggerPointCut()")
+    @AfterThrowing("GreetingServicePointcut.greetingLoggerPointCut()")
     public void loggerAfterThrowing(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues lanzar la excepcion: " + method + " con los argumentos " + args);
     }
 
-    @Around("greetingLoggerPointCut()")
+    @Around("GreetingServicePointcut.greetingLoggerPointCut()")
     public Object loggerAround(ProceedingJoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());

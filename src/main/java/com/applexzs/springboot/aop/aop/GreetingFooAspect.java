@@ -5,7 +5,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -20,18 +19,14 @@ public class GreetingFooAspect {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-
-    @Pointcut("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
-    private void greetingFooAspectPointcut() {}
-
-    @Before("greetingFooAspectPointcut()")
+    @Before("GreetingServicePointcut.greetingFooAspectPointcut()")
     public void loggerBefore(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Antes primero: " + method + " invocados con los parametros " + args);
     }
 
-    @After("greetingFooAspectPointcut()")
+    @After("GreetingServicePointcut.greetingFooAspectPointcut()")
     public void loggerAfter(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
