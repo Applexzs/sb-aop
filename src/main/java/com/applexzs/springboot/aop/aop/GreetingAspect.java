@@ -18,35 +18,38 @@ public class GreetingAspect {
 
     private Logger log = LoggerFactory.getLogger(GreetingAspect.class);
 
-    @Before("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    @Pointcut("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    private void greetingLoggerPointCut() {}
+
+    @Before("greetingLoggerPointCut()")
     public void loggerBefore(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Antes: " + method + " con los argumentos " + args);
     }
 
-    @After("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    @After("greetingLoggerPointCut()")
     public void loggerAfter(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues: " + method + " con los argumentos " + args);
     }
 
-    @AfterReturning("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    @AfterReturning("greetingLoggerPointCut()")
     public void loggerAfterReturning(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues de retornar: " + method + " con los argumentos " + args);
     }
 
-    @AfterThrowing("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    @AfterThrowing("greetingLoggerPointCut()")
     public void loggerAfterThrowing(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         log.info("Despues lanzar la excepcion: " + method + " con los argumentos " + args);
     }
 
-    @Around("execution(String com.applexzs.springboot.aop.services.IGreetingService.*(..))")
+    @Around("greetingLoggerPointCut()")
     public Object loggerAround(ProceedingJoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
